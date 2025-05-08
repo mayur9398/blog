@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card">
+  {% if blog.image %}
+  <img
+    src="{{ url_for('static', filename='uploads/' + blog.image) }}"
+    class="card-img-top"
+    style="max-height: 400px; object-fit: cover"
+  />
+  {% endif %}
+  <div class="card-body">
+    <h2 class="card-title">{{ blog.title }}</h2>
+    <p class="card-text">{{ blog.content }}</p>
+    <a href="/" class="btn btn-secondary">Back to Home</a>
+  </div>
+</div>
+
+<hr />
+<h4>Comments</h4>
+<form method="POST" class="mb-4">
+  <div class="mb-2">
+    <input
+      type="text"
+      class="form-control"
+      name="name"
+      placeholder="Your name"
+      required
+    />
+  </div>
+  <div class="mb-2">
+    <textarea
+      class="form-control"
+      name="comment"
+      placeholder="Your comment"
+      rows="3"
+      required
+    ></textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Post Comment</button>
+</form>
+
+{% for comment in comments %}
+<div class="border p-2 mb-2 rounded">
+  <strong>{{ comment.name }}</strong><br />
+  {{ comment.comment }}
+</div>
+{% endfor %} {% endblock %}
